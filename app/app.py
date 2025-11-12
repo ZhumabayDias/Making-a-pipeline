@@ -1,3 +1,4 @@
+import ast
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -10,5 +11,5 @@ def hello():
 @app.route('/unsafe')
 def unsafe():
     expr = request.args.get('expr', '2+2')
-    result = eval(expr)
+    result = ast.literal_eval(expr)
     return f"Result: {result}"
