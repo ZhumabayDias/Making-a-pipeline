@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -7,5 +7,8 @@ def hello():
     # простая страничка
     return "Hello, Sec CI!"
 
-if __name__ == "__main__":
-    app.run()
+@app.route('/unsafe')
+def unsafe():
+    expr = request.args.get('expr', '2+2')
+    result = eval(expr)
+    return f"Result: {result}"
